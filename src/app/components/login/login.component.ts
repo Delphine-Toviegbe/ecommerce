@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class LoginComponent {
   public email : string ='';
   public password : string = '';
 
+  router = inject(Router);
 
   public login(){
     signInWithEmailAndPassword(this.auth, this.email, this.password)
@@ -20,6 +22,7 @@ export class LoginComponent {
       // Signed up 
       const user = userCredential.user;
       console.log('This is a user', user.email);
+      this.router.navigateByUrl('/')
       // ...
     })
     .catch((error) => {

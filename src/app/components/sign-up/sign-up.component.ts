@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,11 +14,14 @@ export class SignUpComponent {
     public email : string ='';
     public password : string = '';
 
+    router = inject(Router);
+
     public signUp(){
         createUserWithEmailAndPassword(this.auth, this.email, this.password)
         .then((userCredential) => {
             // Signed up 
             const user = userCredential.user;
+            this.router.navigateByUrl('/')
             // ...
         })
         .catch((error) => {
